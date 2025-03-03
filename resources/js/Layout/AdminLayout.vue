@@ -1,10 +1,7 @@
 <template>
       <div class="sidenav">
        <div class="items">
-         <Link href="/admin/car">Car</Link>
-         <Link href="/admin/customer">Customer</Link>
-         <Link href="/admin/rental">Rental</Link>
-         <Link href="">Logout</Link>
+         <h1>Admin</h1>
        </div>
       </div>
       
@@ -13,7 +10,7 @@
 </template>
 
 <script setup>
-import{Link} from '@inertiajs/vue3'
+
 </script>
 
 <style scoped>
