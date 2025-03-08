@@ -13,13 +13,49 @@ import { useToast } from 'vue-toastification'
 
 const toast = useToast()
 const ShowAlert = ()=>{
-Swal.fire({
-    title: 'Success!',
-    text: 'Your action was successful.',
-    icon: 'success',
-    confirmButtonText: 'OK'
-  })
-}
+const currentRental = async (id) => {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You won’t be able to revert this!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        let res = await axios.post('/admin/delete_current_rental', { id });
+
+        if (res.data.status === 200) {
+          toast.success(res.data.message);
+
+          Swal.fire({
+            title: 'Deleted!',
+            text: res.data.message,
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+        } else {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Failed to delete rental.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Something went wrong. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
+    }
+  });
+};
+
 
 const successToast=()=>{
    toast.success('Operation Successful!', {
